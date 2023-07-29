@@ -23,7 +23,7 @@ let userdata = {} ;
         let pvalue = password.value ;
         console.log(evalue+"   "+pvalue) ;
         try{
-            await fetch('https://dummyjson.com/auth/login', {
+            let resp = await fetch('https://dummyjson.com/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -33,15 +33,12 @@ let userdata = {} ;
                 })
                 .then(res => {
                     return res.json()})
-                .then(data =>{
-                    var userId = data.id ;
-                    
+                .catch(error => console.log(error));
+
+                var userId = resp.id ;
+                    console.log(userId) ;
                      setUserId(userId) ;
                      navigate("profile") ;
-                    // console.log(userId) ;
-                    // console.log(data) ;
-                });
-                
         }
         catch(error){
             console.log(error)
@@ -56,7 +53,7 @@ let userdata = {} ;
             <h2>Sign in into your account</h2>
             <label > Enter email</label>
             
-            <input type='text' placeholder='Enter your name'  id='email' onClick={(e)=>e.preventDefault}/>
+            <input type='text' placeholder='Enter your name'  id='email' onClick={(e)=>e.preventDefault} />
             
             <label  >Enter password</label>
             
